@@ -544,7 +544,16 @@ Ext.define('Module.pos.inventoryMoveOut.view.CreateWindow', {
 				
 				this.refresh(obj);
 			},
-			failure: function(response, opts) {
+			failure: function (response, opts) {
+			    var message = Ext.decode(response.responseText);
+			    me.setStatus({
+			        text: '<font color="red">' + message.Message + '</font>',
+			        clear: {
+			            wait: 8000,
+			            anim: false,
+			            useDefaults: false
+			        }
+			    });
 				Ext.Logger.warn('server-side failure with status code ' + response.status);
 			},
 			scope: this
