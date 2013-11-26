@@ -145,7 +145,7 @@ Ext.define('Module.pos.inventoryMoveOut.view.CreateWindow', {
 						anchor: '-5',
 						name: 'RefNumber',
 						tabIndex: 5,
-						emptyText: '如采购单、调拨单号',
+						emptyText: '如领料单号、调拨单号',
 						textValid: true,
 						validator: function (value) {
 						    return this.textValid;
@@ -156,30 +156,32 @@ Ext.define('Module.pos.inventoryMoveOut.view.CreateWindow', {
 						        if (moveoutType == null) {
 						            field.textValid = '必须先选择出库类型';
 						            field.validate();
+						            return;
 						        }
 						        var refNumber = field.getValue();
 						        if (moveoutType == 0 || moveoutType == 3) {
 						            if (refNumber == '') {
 						                field.textValid = '原始单证编号不能为空';
 						                field.validate();
+						                return;
 						            }
+						            Ext.Ajax.request({
+						                url: Ext.String.format("{0}/{1}/ValidateRefNumber", me.apiPath, me.objectId),
+						                method: 'POST',
+						                jsonData: { "RefNumber": refNumber, "MoveOutType": moveoutType },
+						                success: function (response, opts) {
+						                    field.clearInvalid();
+						                    field.textValid = true;
+						                    field.validate();
+						                },
+						                failure: function (response, opts) {
+						                    field.textValid = "该单号不存在";
+						                    field.validate();
+						                    Ext.Logger.warn('server-side failure with status code ' + response.status);
+						                },
+						                scope: this
+						            });
 						        }
-						        Ext.Ajax.request({
-						            url: Ext.String.format("{0}/{1}/ValidateRefNumber", me.apiPath, me.objectId),
-						            method: 'POST',
-						            jsonData: { "RefNumber": refNumber, "MoveOutType": moveoutType },
-						            success: function (response, opts) {
-						                field.clearInvalid();
-						                field.textValid = true;
-						                field.validate();
-						            },
-						            failure: function (response, opts) {
-						                field.textValid = "该单号不存在";
-						                field.validate();
-						                Ext.Logger.warn('server-side failure with status code ' + response.status);
-						            },
-						            scope: this
-						        });
 						    }
 						}
 					},{

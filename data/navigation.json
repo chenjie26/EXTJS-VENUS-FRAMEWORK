@@ -42,6 +42,12 @@
 			},
 			{
 				name: '领料单', module: 'pos.pickOutOrder' 
+			},
+			{
+				name: '调拨出库单', module: 'pos.transferOrderOut' 
+			},
+			{
+				name: '调拨入库单', module: 'pos.transferOrderIn' 
 			}
 		]
 	}, 
