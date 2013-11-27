@@ -349,7 +349,7 @@ Ext.define('Module.pos.inventoryMoveOut.view.CreateWindow', {
 							
 							var selections = grid.getSelectionModel().getSelection();
 							var rec = selections[0];
-							rec.set('SKU', record.get("SKU"))
+							rec.set('SKU', record.get("SKU")),
 							rec.set('Name', record.get("Name"));
 							rec.set('UOM', record.get('UOMName'));
 							rec.set('Quantity', 1.0);

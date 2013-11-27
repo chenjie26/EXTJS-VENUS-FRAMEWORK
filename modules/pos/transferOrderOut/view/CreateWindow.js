@@ -69,6 +69,7 @@ Ext.define('Module.pos.transferOrderOut.view.CreateWindow', {
 			    height: 30,
 			    width: 60,
 			    scope: this,
+			    hidden: true,
 			    handler: this.onCloseOrderClicked
 			}, {
 			    xtype: 'button',
@@ -87,6 +88,7 @@ Ext.define('Module.pos.transferOrderOut.view.CreateWindow', {
 				height: 30,
 				width: 60,
 				scope: this,
+				hidden: true,
 				handler: this.onCancelClicked
 			},{
 				xtype: 'button',
@@ -1143,7 +1145,7 @@ Ext.define('Module.pos.transferOrderOut.view.shipWindow', {
     onDeleteLineClick: function (btn, event, eOpts) {
         var me = this,
 			grid = this.getGrid(),
-			store = this.getStore()
+			store = this.getStore(),
         selModel = grid.getSelectionModel();
 
         var selections = selModel.getSelection();
@@ -1270,6 +1272,15 @@ Ext.define('Module.pos.transferOrderOut.view.shipWindow', {
                 this.refresh(obj);
             },
             failure: function (response, opts) {
+                var message = Ext.decode(response.responseText);
+                me.setStatus({
+                    text: '<font color="red">' + message.Message + '</font>',
+                    clear: {
+                        wait: 8000,
+                        anim: false,
+                        useDefaults: false
+                    }
+                });
                 Ext.Logger.warn('server-side failure with status code ' + response.status);
             },
             scope: this

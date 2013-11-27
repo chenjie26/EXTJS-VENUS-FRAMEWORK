@@ -69,6 +69,7 @@ Ext.define('Module.pos.transferOrderIn.view.CreateWindow', {
 			    height: 30,
 			    width: 60,
 			    scope: this,
+			    hidden: true,
 			    handler: this.onCloseOrderClicked
 			}, {
 			    xtype: 'button',
@@ -87,6 +88,7 @@ Ext.define('Module.pos.transferOrderIn.view.CreateWindow', {
 				height: 30,
 				width: 60,
 				scope: this,
+				hidden: true,
 				handler: this.onCancelClicked
 			},{
 				xtype: 'button',
