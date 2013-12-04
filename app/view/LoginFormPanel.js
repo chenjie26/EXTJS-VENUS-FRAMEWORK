@@ -7,7 +7,7 @@ Ext.define('App.view.LoginFormPanel', {
 	title: '请登录',
 	closable: false,
 	constrain: true,
-	height: 250,
+	height: 210,
 	resizable: false,
 	modal: true,
 	layout: 'anchor',
