@@ -48,7 +48,10 @@ Ext.application({
 		'Header'
     ],
 	
-	views: ['LoginFormPanel'],
+    views: ['LoginFormPanel'],
+    
+    apiPath: Ext.String.format('{0}/Account', "/" === basket.contextPath ? "" : basket.contextPath),
+
 	
 	launch: function() {
 		var me = this;
@@ -139,7 +142,18 @@ Ext.application({
 	{
 		var me = this,
 			header = me.getHeaderView();
-			
+		
+		Ext.Ajax.request({
+		    url: Ext.String.format("{0}/LogOff", me.apiPath),
+		    method: 'GET',
+		    success: function (response, opts) {
+		    },
+		    failure: function (response, opts) {
+		        Ext.Logger.warn('server-side failure with status code ' + response.status);
+		    },
+		    scope: this
+		});
+        
 		if(me.loginWindow){
 			me.loginWindow.show();
 		}

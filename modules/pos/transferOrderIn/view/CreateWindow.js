@@ -417,7 +417,7 @@ Ext.define('Module.pos.transferOrderIn.view.CreateWindow', {
 	onDeleteLineClick : function(btn, event, eOpts){
 		var me = this,
 			grid = this.getGrid(),
-			store = this.getStore()
+			store = this.getStore(),
 			selModel = grid.getSelectionModel();
 		
 		var selections = selModel.getSelection();
